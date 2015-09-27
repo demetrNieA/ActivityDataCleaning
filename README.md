@@ -49,8 +49,8 @@ will return information about "weighted average of the frequency components to o
 * Parameter FUN can be used to override applied function.
 
 ## Other useful functions:
-* getAllVariables can be used to read all variables from paticular dataset:
+* `getAllVariables` can be used to read all variables from paticular dataset:
 ```R
 test <- getAllVariables("test")
 ```
-* decorateMeasurment and interialSignalColumnNameDecorator can be overriden in case you want to change variables naming.
+* `decorateMeasurment` and `interialSignalColumnNameDecorator` can be overriden in case you want to change variables naming.
