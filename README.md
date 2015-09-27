@@ -29,7 +29,7 @@ The sensor signals (accelerometer and gyroscope) were pre-processed by applying 
 source("run_analysis.R")
 data <- getTinyActivityData()
 ```
-This commands will trigger download, merging and filtering dataset and applying mean to all filtered variables except Subject and Activity. In result you will have wide dataset with variables described in CodeBook.md.
+This commands will trigger download, unzipping, merging and filtering dataset columns and applying mean to all variables except Subject and Activity. In result you will have wide dataset with variables described in CodeBook.md.
 
 * By default script uses activity_data folder to download and unpack data. You can change this by setting free variable `activityData.DataDir`.
 * Free variable `activityData.URL` keeps link to downloading data. You are free to change it.
