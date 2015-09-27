@@ -33,12 +33,18 @@ This commands will trigger download, merging and filtering dataset and applying 
 
 * By default script uses activity_data folder to download and unpack data. You can change this by setting free variable `activityData.DataDir`.
 * Free variable `activityData.URL` keeps link to downloading data. You are free to change it.
-
-* In case you already downloaded dataset you can skip download\unpack phase by defining `activityData.DataSetPath` free variable and setting parameter `skipDownloading` to TRUE:
+* In case you already downloaded dataset you can skip download phase by defining `activityData.ArchiveName` and `activityData.DataSetPath` free variables and setting parameter `skipDownloading` to TRUE:
+```R
+source("run_analysis.R")
+activityData.ArchiveName <- "./activity_data/HAR Dataset [2015-09-26].zip"
+activityData.DataSetPath <- "./activity_data/data_set[2015-09-26]/"
+data <- getTinyActivityData(skipDownloading = TRUE)
+```
+* Also you can skip unpacking phase as well by defining `activityData.DataSetPath` and setting both `skipDownloading` and `skipUnpacking` to TRUE:
 ```R
 source("run_analysis.R")
 activityData.DataSetPath <- "./activity_data/data_set[2015-09-26]/"
-data <- getTinyActivityData(skipDownloading = TRUE)
+data <- getTinyActivityData(skipDownloading = TRUE, skipUnpacking = TRUE)
 ```
 * Parameter `columnFilter` can be used to override default filtering options. I.e.  
 ```R

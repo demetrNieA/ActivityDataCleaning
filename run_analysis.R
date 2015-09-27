@@ -5,6 +5,8 @@ activityData.URL = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles
 # This dir will be used for keeping data.
 activityData.DataDir = "./activity_data"
 
+# Path to already downloaded data.
+activityData.ArchiveName = character()
 # Path to downloaded data.
 activityData.DataSetPath = character()
 # Date of the last syncing.
@@ -35,21 +37,23 @@ downloadActivityData <- function() {
   dir.create("./activity_data", showWarnings = FALSE)
   activityData.SyncTime <<- Sys.Date()
   
-  activityData.ArchiveName <- paste(
+  activityData.ArchiveName <<- paste(
     activityData.DataDir,
     "/HAR Dataset [", 
     as.character(activityData.SyncTime),
     "].zip",
     sep = "")
   download.file(activityData.URL, activityData.ArchiveName)
-
+  
   activityData.DataSetPath <<- paste(
     activityData.DataDir,
     "/data_set[", 
     as.character(activityData.SyncTime),
     "]/",
     sep = "")
-  
+}
+
+unpackData <- function() {
   unzip(activityData.ArchiveName, exdir = activityData.DataSetPath, setTimes = TRUE)
 }
 
@@ -192,10 +196,17 @@ filterActivityData <- function(data = data.frame(), activityData.filter) {
 # skipDownloading - if you want to skip downloading 
 # columnFilter - which columns should be in resulted data.frame
 # FUN - any function to be calculated by subject and activity
-getTinyActivityData <- function(skipDownloading = FALSE, columnFilter = c("_Mean", "StandatdDeviation"), FUN = mean) {
+getTinyActivityData <- function(
+  skipDownloading = FALSE, 
+  skipUnpacking = FALSE,
+  columnFilter = c("_Mean", "StandatdDeviation"), 
+  FUN = mean) {
   
   if (!skipDownloading) {
     downloadActivityData()
+  }
+  if (!skipUnpacking) {
+    unpackData()
   }
   
   test <- getAllVariables("test")
